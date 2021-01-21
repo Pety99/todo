@@ -1,4 +1,4 @@
-import '/src/login.css'
+import '/src/style/global.css'
 export const login = (function(){
 
     function loadPage() {
@@ -19,7 +19,6 @@ export const login = (function(){
         const loader = document.createElement('div');
         loader.id = 'loader';
         loader.textContent += 'Loading...';
-        document.body.appendChild(h1);
         document.body.appendChild(container);
         document.body.appendChild(loader);
     }

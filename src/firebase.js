@@ -8,6 +8,7 @@ export function initFirebase() {
     const firebaseConfig = {
         apiKey: "AIzaSyBvRrg3x7Xj6961bnzaH5IVmt0D1Gjoe5Y",
         authDomain: "todo-list-a7ac0.firebaseapp.com",
+        databaseURL: "https://todo-list-a7ac0-default-rtdb.firebaseio.com",
         projectId: "todo-list-a7ac0",
         storageBucket: "todo-list-a7ac0.appspot.com",
         messagingSenderId: "600032509193",

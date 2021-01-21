@@ -1,8 +1,12 @@
-import '/src/login.css'
+import '/src/style/global.css'
 import {logOut} from '/src/firebaseAuth';
+import {database} from '/src/firebaseDB';
+
+import {menubar} from '/src/components/menubar/menubar';
+
 export const app = (function(){
 
-    function loadPage(user) {
+    function loadPage() {
         const content = document.querySelector('#sign-out');
         if (content) {
             content.classList.remove('hidden');
@@ -19,6 +23,7 @@ export const app = (function(){
         signOut.textContent = 'Sign Out';
         signOut.id = 'sign-out';
         signOut.addEventListener('click', logOut);
+        document.body.appendChild(menubar);
         document.body.appendChild(signOut);
     }
 

@@ -6,7 +6,7 @@ import * as firebaseui from "firebaseui";
 import 'firebaseui/dist/firebaseui.css'
 
 
-export const initUI = function(){
+export function initUI(){
   // Initialize the FirebaseUI Widget using Firebase.
   const ui = new firebaseui.auth.AuthUI(firebase.auth());
   
