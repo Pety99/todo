@@ -1,0 +1,164 @@
+
+.sidePanel {
+    display: flex;
+    flex-direction: row;
+    width: 35%;
+    background-color: rgba(0, 0, 0, 0.0);
+    transition: background-color 0.8s;
+    transition: width 0.2s ease-out;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transition: width 0.15s ease-out;
+    background: radial-gradient(100% 100% at 0% 0%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.15) 100%);
+    box-shadow: 80px 100px 100px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(80px);
+}
+
+.profileContainer {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+}
+
+.dayViewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.day {
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.day img, .day p {
+    cursor: pointer;
+}
+
+.day img:not(.arrow) {
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+.day:hover {
+    color: #574DFA;
+}
+
+.arrow {
+    transform: rotate(-90deg);
+    transition: transform 0.1s;
+    margin-left: 10px;
+}
+
+.arrow.rotated {
+    transform: rotate(0deg);
+    transition: transform 0.1s;
+    margin-left: 10px;
+}
+
+.hrTop {
+    margin: 0px 20px 10px 20px;
+}
+
+.hrBottom {
+    display: none;
+    margin: 10px 20px 0px 20px;
+}
+
+.hrBottom.visible {
+    display: block;
+}
+
+.dropdownContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+    transition: max-height 0.15s ease-out;
+    max-height: 0px;
+}
+
+.dropdownContent.visible {
+    transition: max-height 0.15s ease-out;
+    max-height: 300px;
+}
+
+.project {
+    display: flex;
+    margin: 4px 20px 4px 20px;
+    border-radius: 20px;
+    /*border: 1px solid black;*/
+}
+
+.project:hover {
+    color: #574DFA;
+    cursor: pointer;
+}
+
+.project p {
+    margin: 10px;
+}
+
+.project img {
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+@media screen and (max-width:768px) {
+    .sidePanel {
+        width: 0%;
+    }
+    .sidePanel.visible {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s;
+    }
+    .container {
+        width: 0%;
+    }
+    .container.visible {
+        width: 75%;
+        transition: width 0.15s;
+    }
+    .profileContainer {
+        display: none;
+    }
+    .profileContainer.visible {
+        display: flex;
+    }
+    .dayViewContainer {
+        display: none;
+    }
+    .dayViewContainer.visible {
+        display: flex;
+    }
+    .dropdown {
+        display: none;
+    }
+    .dropdown.visible {
+        display: flex;
+        flex-direction: column
+    }
+    .dropdownContent.visible {
+        max-height: 200px;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .container, .sidePanel {
+        border-radius: 20px;
+    }
+    .container {
+        margin: 20px;
+        border: 1px solid;
+        border-image-source: linear-gradient(175.45deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.30) 100%);
+    }
+}

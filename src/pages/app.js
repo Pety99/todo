@@ -2,7 +2,8 @@ import '/src/style/global.css'
 import {logOut} from '/src/firebaseAuth';
 import {database} from '/src/firebaseDB';
 
-import {menubar} from '/src/components/menubar/menubar';
+import {menuBar} from '/src/components/menuBar/menuBar';
+import {sideBar} from '/src/components/sideBar/sideBar';
 
 export const app = (function(){
 
@@ -17,14 +18,20 @@ export const app = (function(){
     }
     
     function createContent() {
+
+        const content = document.querySelector('#content');
+
+        /*
         const signOut = document.createElement('button');
         signOut.style.width = '50px';
         signOut.style.height = '50px';
         signOut.textContent = 'Sign Out';
         signOut.id = 'sign-out';
         signOut.addEventListener('click', logOut);
-        document.body.appendChild(menubar);
-        document.body.appendChild(signOut);
+        */
+        content.appendChild(menuBar.getPanel());
+        content.appendChild(sideBar.getPanel());
+        content.appendChild(signOut);
     }
 
     function hidePage() {

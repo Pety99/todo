@@ -2,22 +2,24 @@
     display: none;
 }
 
-#menubar {
+#menuBar {
     display: none;
 }
 
 @media screen and (max-width:768px) {
-    #menubar {
+    #menuBar {
+        z-index: 2;
+        position: absolute;
         display: flex;
         height: 50px;
         opacity: 50%;
         width: 100%;
-        transition: 0.2s;
+        transition: 0.15s;
         background-color: white;
     }
-    #menubar.small {
+    #menuBar.small {
         width: 75%;
-        transition: 0.2s;
+        transition: 0.15s;
     }
 
     .hamburger {

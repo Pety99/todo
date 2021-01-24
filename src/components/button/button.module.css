@@ -1,0 +1,32 @@
+.button{
+    height: 55px;
+    margin: 20px;
+    transition: all 0.1s ease-out;
+    border-radius: 20px;
+    background-color: #574DFA;
+    color: white;
+    outline: none;
+    border: none;
+}
+
+@media screen and (max-width:768px) {
+
+    .button{
+        display: none;
+    }
+    .button.visible{
+        display: inline-block;
+    }
+    
+}
+
+.button:hover{
+    background-color: #4e45e1;
+    cursor: pointer;
+}
+
+button:active:hover{
+    margin: 25px;
+    height: 45px;
+    transition: all 0.1s ease-out;
+}
