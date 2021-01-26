@@ -1,5 +1,5 @@
-import firebase from "firebase/app";
-import "firebase/database";
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 export const database = (function () {
 
@@ -89,6 +89,26 @@ export const database = (function () {
         });
     }
 
+
+    // Database events
+
+    function projectCreated(listeners){
+        // The set timeout is needed so that this function is only called when the db is initialized
+        setTimeout(function(){
+            const projectsRef = db.ref(`/projects/${uid}/`);
+            projectsRef.on('child_added', (snapshot, prevChildKey) =>{
+                const newProject = snapshot.val();
+                listeners.forEach(listener => {
+                    listener(newProject);
+                })
+            });
+        },0);
+    }
+
+    function projectDeleted(){
+
+    }
+
     return {
         initDB,
         createUser,
@@ -98,6 +118,8 @@ export const database = (function () {
         createTodo,
         updateTodo,
         deleteTodo,
+        projectCreated,
+
     }
 })();
 

@@ -7,6 +7,7 @@ import dot from './assets/Dot.svg'
 import style from './sideBar.module.css'
 
 import {button} from '/src/components/button/button'
+import {modal} from '/src/components/modal/modal'
 
 export const sideBar = (function () {
 
@@ -16,14 +17,17 @@ export const sideBar = (function () {
     let profileContainer;
     let dayView;
     let dropdown;
+    let dropdownContent; //This is the div that cotains the projects
     let addButton = button();
+    const addProjectSucessListeners = []; //These functions will be called when the addProject is saved
+    
 
     const initPanel = (function () {
         createPanel();
         profileContainer = createProfile();
         dayView = createDayView();
         dropdown = createDropdown([turnArrow, toggleDropdown, toggleBottomBar]);
-        addButton.create('Add Project');
+        addButton.create('Add Project', [openModal]);
 
         container.appendChild(profileContainer);
         container.appendChild(dayView);
@@ -35,6 +39,9 @@ export const sideBar = (function () {
         return sidePanel;
     }
 
+    /**
+     * Shows or hides the whhole panel with its components
+     */
     function toggle() {
         
         addButton.toggle();
@@ -55,6 +62,9 @@ export const sideBar = (function () {
         }
     }
 
+    /**
+     * Creates the sidepanel
+     */
     function createPanel() {
         sidePanel = document.createElement('div');
         sidePanel.classList.add(style.sidePanel);
@@ -63,6 +73,9 @@ export const sideBar = (function () {
         sidePanel.appendChild(container);
     }
 
+    /**
+     * Creates the profile section in the sidepanel
+     */
     function createProfile() {
         const profileContainer = document.createElement('div');
         profileContainer.classList.add(style.profileContainer);
@@ -72,17 +85,30 @@ export const sideBar = (function () {
         return profileContainer;
     }
 
+    /**
+     * Currently creates the today button, more can be added
+     */
     function createDayView() {
         const dayViewContainer = document.createElement('div');
         dayViewContainer.classList.add(style.dayViewContainer);
-        dayViewContainer.appendChild(createDay('Today', today));
+        dayViewContainer.appendChild(createDay('Today', today, false /*TODO listener a mai napokra */));
         return dayViewContainer;
     }
 
-    function createDay(name, svg, listeners) {
+    /**
+     * Creates a dayView
+     * @param {string} name 
+     * @param {svg} svg 
+     * @param {boolean} addArrow 
+     * @param {arrayOfFunctions} listeners 
+     */
+    function createDay(name, svg, addArrow, listeners) {
         const day = document.createElement('div');
         day.classList.add(style.day);
-        day.innerHTML = `<img src="${svg}" alt="${name}"><p>${name}</p>`;
+        day.innerHTML = `<img src="${svg}" alt="${name}"><div class="${style.dayText}"><p>${name}</p></div>`;
+        if(addArrow){
+            day.innerHTML = `<img src="${svg}" alt="${name}"><div class="${style.dayText}"><p>${name}</p><img src="${arrow}"alt="Arrow" class="${style.arrow}"></div>`;
+        }
 
         listeners && listeners.forEach(listener => {
             day.addEventListener('click', listener);
@@ -91,47 +117,32 @@ export const sideBar = (function () {
         return day;
     }
 
+    /**
+     * Creates the dropdown menu
+     * @param {arrayOfFunctions} listeners 
+     */
     function createDropdown(listeners) {
         const dropdown = document.createElement('div');
         dropdown.classList.add(style.dropdown);
-        const project = createDay('Projects', projects, listeners);
-        const img = document.createElement('img');
-        img.src = arrow;
-        img.alt = "Arrow";
-        img.classList.add(style.arrow);
-        project.appendChild(img);
+        const project = createDay('Projects', projects, true, listeners);
         dropdown.appendChild(project);
         const hr1 = document.createElement('hr');
         hr1.classList.add(style.hrTop);
         dropdown.appendChild(hr1);
-        const content = document.createElement('div');
-        content.classList.add(style.dropdownContent);
-        /****************************************************************/
-        content.appendChild(createProject('Work 1'));
-        content.appendChild(createProject('Work 2'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        content.appendChild(createProject('Work 3'));
-        /****************************************************************/
-        dropdown.appendChild(content);
+        dropdownContent = document.createElement('div');
+        dropdownContent.classList.add(style.dropdownContent);
+        dropdown.appendChild(dropdownContent);
         const hr2 = document.createElement('hr');
         hr2.classList.add(style.hrBottom);
         dropdown.appendChild(hr2);
-
-       /* listeners && listeners.forEach(listener => {
-            dropdown.addEventListener('click', listener);
-        });*/
-
         return dropdown;
     }
 
+    /**
+     * Creates a project
+     * @param {string} name 
+     * @param {arrayOfFunctions} listeners 
+     */
     function createProject(name, listeners) {
         const project = document.createElement('div');
         project.classList.add(style.project);
@@ -141,6 +152,14 @@ export const sideBar = (function () {
             project.addEventListener('click', listener);
         });
         return project;
+    }
+
+    /**
+     * Adds the listeners which will be called when the save button is clicked on project add
+     * @param {arrayOfFunctions} listeners 
+     */
+    function addAddProjectListeners(listeners) {
+        listeners && addProjectSucessListeners.push(...listeners);
     }
 
     //Event Listeners
@@ -156,6 +175,10 @@ export const sideBar = (function () {
         }
     }
 
+    /**
+     * Shows and hides the dropdown if you click on the 'Projects'
+     * @param {event} event 
+     */
     function toggleDropdown(event){
         const content = document.querySelector(`.${style.dropdownContent}`);
         if (content.classList.contains(style.visible)) {
@@ -166,6 +189,10 @@ export const sideBar = (function () {
         }
     }
 
+    /**
+     * Shows and hides the bottom bar if you click on the 'Projects'
+     * @param {event} event 
+     */
     function toggleBottomBar(event){
         const hrBottom = document.querySelector(`.${style.hrBottom}`);
         if (hrBottom.classList.contains(style.visible)) {
@@ -176,10 +203,24 @@ export const sideBar = (function () {
         }
     }
 
+    //Add Project button
+    function openModal(){
+        let modalView = modal();
+        modalView.createProjectForm();
+        modalView.addSucessListeners(addProjectSucessListeners);
+        document.body.appendChild(modalView.getComponent());
+        modalView.focus();
+    }
+
+    function createProjectView(newProject, listeners){
+        dropdownContent.appendChild(createProject(newProject.name));
+    }
 
     return {
         getPanel,
         toggle,
+        addAddProjectListeners,
+        createProjectView
     }
 })();
 

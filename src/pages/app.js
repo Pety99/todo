@@ -14,6 +14,8 @@ export const app = (function(){
         }
         else {
             createContent();
+            subscribeToClickEvents();
+            subscribeToDBEvents();
         }
     }
     
@@ -29,9 +31,19 @@ export const app = (function(){
         signOut.id = 'sign-out';
         signOut.addEventListener('click', logOut);
         */
+ 
+
         content.appendChild(menuBar.getPanel());
         content.appendChild(sideBar.getPanel());
-        content.appendChild(signOut);
+        //content.appendChild(signOut);
+    }
+
+    function subscribeToClickEvents(){
+        sideBar.addAddProjectListeners([database.createProject]);
+    }
+
+    function subscribeToDBEvents(){
+        database.projectCreated([sideBar.createProjectView]);
     }
 
     function hidePage() {

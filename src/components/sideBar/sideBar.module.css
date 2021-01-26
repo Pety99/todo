@@ -39,12 +39,18 @@
     width: 100%;
 }
 
+.dayText{
+    display: flex;
+    width: 70%;
+    margin-right: auto;
+}
+
 .day img, .day p {
     cursor: pointer;
 }
 
 .day img:not(.arrow) {
-    margin-left: 40px;
+    margin-left: auto;
     margin-right: 10px;
 }
 
@@ -160,5 +166,14 @@
         margin: 20px;
         border: 1px solid;
         border-image-source: linear-gradient(175.45deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.30) 100%);
+    }
+    .dayText{
+        width: 125px;
+    }
+}
+
+@media screen and (min-width:1366px) {
+    .dayText{
+        width: 325px;
     }
 }

@@ -1,6 +1,7 @@
 .button{
     height: 55px;
-    margin: 20px;
+    width: 80%;
+    margin: 20px auto 20px auto;
     transition: all 0.1s ease-out;
     border-radius: 20px;
     background-color: #574DFA;
@@ -26,7 +27,20 @@
 }
 
 button:active:hover{
-    margin: 25px;
+    margin: 25px auto 25px auto;
     height: 45px;
+    width: calc(80% - 20px);
     transition: all 0.1s ease-out;
 }
+
+.outline{
+    border: 1px solid #979797;
+    color: #2E2E2E;
+    background-color: transparent;
+}
+
+.outline:hover{
+    background-color: transparent;
+    border: 1px solid #4e45e1;
+}
+

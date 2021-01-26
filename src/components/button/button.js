@@ -1,4 +1,4 @@
-import style from './button.module.css'
+import style from './button.module.css';
 
 export const button = (function () {
     
@@ -8,15 +8,20 @@ export const button = (function () {
         return button;
     }
 
-    function create(text, listeners){
+    function create(text, clickListeners){
+
+        //Create the button
         button = document.createElement('button');
         button.type = 'button';
         button.textContent = text;
         button.classList.add(style.button);
 
-        listeners && listeners.forEach(listener => {
-            button.addEventListener('click', listener);
-        });
+        //Add the click listeners
+        clickListeners && addListeners(clickListeners);
+    }
+
+    function makeOutline(){
+        button.classList.add(style.outline);
     }
 
 
@@ -29,10 +34,22 @@ export const button = (function () {
         }
     }
 
+    function addListener(listener){
+        button.addEventListener('click', listener);
+    }
+
+    function addListeners(listeners){
+        listeners && listeners.forEach(listener => {
+            addListener(listener);
+        });
+    }
+
     return {
         getButton,
         create,
+        makeOutline,
         toggle,
+        addListener
     }
 
 });
