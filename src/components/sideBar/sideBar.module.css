@@ -26,6 +26,15 @@
     margin-top: 70px;
 }
 
+.profileContainer img{
+    height: 50px;
+    border-radius: 50%;
+}
+
+.profileContainer img#profilePicture{
+    border: 1.5px solid #574DFA;
+}
+
 .dayViewContainer {
     display: flex;
     flex-direction: column;
@@ -116,6 +125,10 @@
 .project img {
     margin-left: 40px;
     margin-right: 10px;
+}
+
+.signOut{
+    margin-top:auto !important;
 }
 
 @media screen and (max-width:768px) {

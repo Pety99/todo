@@ -8,13 +8,14 @@ export const button = (function () {
         return button;
     }
 
-    function create(text, clickListeners){
+    function create(text, clickListeners, extraClasses){
 
         //Create the button
         button = document.createElement('button');
         button.type = 'button';
         button.textContent = text;
         button.classList.add(style.button);
+        extraClasses && button.classList.add(...extraClasses);
 
         //Add the click listeners
         clickListeners && addListeners(clickListeners);

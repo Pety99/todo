@@ -18,7 +18,8 @@ export const sideBar = (function () {
     let dayView;
     let dropdown;
     let dropdownContent; //This is the div that cotains the projects
-    let addButton = button();
+    const addButton = button();
+    const signOutButton = button();
     const addProjectSucessListeners = []; //These functions will be called when the addProject is saved
     
 
@@ -28,11 +29,14 @@ export const sideBar = (function () {
         dayView = createDayView();
         dropdown = createDropdown([turnArrow, toggleDropdown, toggleBottomBar]);
         addButton.create('Add Project', [openModal]);
+        signOutButton.create('Sign Out', null, [`${style.signOut}`]);
+        signOutButton.makeOutline();
 
         container.appendChild(profileContainer);
         container.appendChild(dayView);
         container.appendChild(dropdown);
         container.appendChild(addButton.getButton());
+        container.appendChild(signOutButton.getButton());
     })();
 
     function getPanel() {
@@ -45,6 +49,7 @@ export const sideBar = (function () {
     function toggle() {
         
         addButton.toggle();
+        signOutButton.toggle();
 
         if (sidePanel.classList.contains(style.visible)) {
             sidePanel.classList.remove(style.visible);
@@ -76,12 +81,12 @@ export const sideBar = (function () {
     /**
      * Creates the profile section in the sidepanel
      */
-    function createProfile() {
+    function createProfile(user) {
         const profileContainer = document.createElement('div');
         profileContainer.classList.add(style.profileContainer);
         profileContainer.innerHTML =
-            `<img id="profile-picture" src="${profilePicture}" alt="Profile Picture">
-        <p id="welcome-message">Welcome Back</p>`;
+            `<img id="${user && user.photoURL && style.profilePicture}" src="${ user && user.photoURL|| profilePicture}" alt="Profile Picture">
+        <p id="welcome-message">Welcome Back ${user && user.displayName.split(' ')[0] || ''}</p>`;
         return profileContainer;
     }
 
@@ -154,6 +159,34 @@ export const sideBar = (function () {
         return project;
     }
 
+    //Public Database Event Listeners/////////////////////////////////////////////////////////////////
+
+    /**
+     * Creates the Project View under the project dropdown
+     * @param {object} newProject data of the new project
+     * @param {*} listeners
+     */
+    function createProjectView(newProject, listeners){
+        dropdownContent.appendChild(createProject(newProject.name));
+    }
+
+    /**
+     * Changes the default profile picture of the users profile picture
+     * Updates the welcome message
+     * The set timeout is necessary because the profile ocntainer can only be selected after the div was created
+     * @param {object} newUser 
+     */
+    function initUser(newUser){
+        setTimeout(function () {
+            const newProfile = createProfile(newUser);
+            const currentProfile = document.querySelector(`.${style.profileContainer}`);
+            currentProfile.parentNode.replaceChild(newProfile, currentProfile);
+            profileContainer = newProfile;
+        },0);
+    }
+
+    //Public click Event Listeners/////////////////////////////////////////////////////////////////
+
     /**
      * Adds the listeners which will be called when the save button is clicked on project add
      * @param {arrayOfFunctions} listeners 
@@ -162,7 +195,13 @@ export const sideBar = (function () {
         listeners && addProjectSucessListeners.push(...listeners);
     }
 
-    //Event Listeners
+    function addSignOutListeners(listeners) {
+        listeners && listeners.forEach(listener => {
+            signOutButton.addListener(listener);
+        });
+    }
+
+    //Private Event Listeners/////////////////////////////////////////////////////////////////
 
     //Projects Button
     function turnArrow(event) {
@@ -212,14 +251,12 @@ export const sideBar = (function () {
         modalView.focus();
     }
 
-    function createProjectView(newProject, listeners){
-        dropdownContent.appendChild(createProject(newProject.name));
-    }
-
     return {
         getPanel,
+        initUser,
         toggle,
         addAddProjectListeners,
+        addSignOutListeners,
         createProjectView
     }
 })();

@@ -35,8 +35,8 @@ export const modal = (function () {
         //The form
         const form = document.createElement('div');
         form.classList.add(style.form);
-        form.innerHTML = `<label for="${style.projectName}">Name your Project</label>
-        <input type="text" placeholder="Name..." id="${style.projectName}" required autofocus>`;
+        form.innerHTML = `<label class="${style.label}"for="${style.projectName}">Name your Project</label>
+        <input class="${style.input}" type="text" placeholder="Name..." id="${style.projectName}" required autofocus>`;
 
         // The buttons
         const buttons = document.createElement('div');

@@ -2,9 +2,9 @@ import '/src/style/global.css'
 export const login = (function(){
 
     function loadPage() {
-        const content = document.querySelector('#firebaseui-auth-container');
+        const content = document.getElementById('login-container')
         if (content) {
-            content.classList = content.classList.remove('hidden');
+            content.classList.remove('hidden');
         }
         else {
             createContent();
@@ -12,20 +12,22 @@ export const login = (function(){
     }
     
     function createContent() {
-        const h1 = document.createElement('h1');
-        h1.textContent = 'Welcome to My Awesome App';
+
         const container = document.createElement('div');
-        container.id = 'firebaseui-auth-container';
-        const loader = document.createElement('div');
-        loader.id = 'loader';
-        loader.textContent += 'Loading...';
-        document.body.appendChild(container);
-        document.body.appendChild(loader);
+        container.id = ('login-container')
+        container.style = 'display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%';
+        container.innerHTML = `
+            <img src="https://via.placeholder.com/150" alt="Logo"></img>
+            <div style="width: 100%">
+                <div id="firebaseui-auth-container"></div>
+                <div id="loader">Loading...</div>
+            </div>
+        `;
+       document.body.appendChild(container);
     }
         
     function hidePage() {
-        document.getElementById('loader').classList.add('hidden');
-        document.getElementById('firebaseui-auth-container').classList.add('hidden');
+        setTimeout(function () { document.getElementById('login-container').classList.add('hidden');},0);
     }
 
     return{

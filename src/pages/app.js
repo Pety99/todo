@@ -7,47 +7,32 @@ import {sideBar} from '/src/components/sideBar/sideBar';
 
 export const app = (function(){
 
-    function loadPage() {
-        const content = document.querySelector('#sign-out');
-        if (content) {
-            content.classList.remove('hidden');
-        }
-        else {
-            createContent();
+    function loadPage(user) {
+            createContent(user);
             subscribeToClickEvents();
-            subscribeToDBEvents();
-        }
+            subscribeToDBEvents(); ////////////////////////////////// TODO MUST UNCOMMENT
     }
     
-    function createContent() {
-
+    function createContent(user) {
         const content = document.querySelector('#content');
-
-        /*
-        const signOut = document.createElement('button');
-        signOut.style.width = '50px';
-        signOut.style.height = '50px';
-        signOut.textContent = 'Sign Out';
-        signOut.id = 'sign-out';
-        signOut.addEventListener('click', logOut);
-        */
- 
-
+        sideBar.initUser(user); //This will cahnge the default menu stuff specific to the user 
         content.appendChild(menuBar.getPanel());
         content.appendChild(sideBar.getPanel());
-        //content.appendChild(signOut);
     }
 
     function subscribeToClickEvents(){
         sideBar.addAddProjectListeners([database.createProject]);
+        sideBar.addSignOutListeners([logOut]);
+
     }
 
     function subscribeToDBEvents(){
-        database.projectCreated([sideBar.createProjectView]);
+        database.projectCreatedOnlyName([sideBar.createProjectView]);
     }
 
     function hidePage() {
-        document.querySelector('#sign-out').classList.add('hidden');
+        const content = document.querySelector('#content');
+        content.remove();
     }
 
     return {

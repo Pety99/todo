@@ -45,20 +45,20 @@
         margin: 20px;
         margin-top: 50%;
     }
-    input{
+    .input{
         font-size:16px;
     }
   
 }
 
 
-label{
+.label{
     margin: 30px;
     font-size: 20px;
     font-weight: 600;
 }
 
-input{
+.input{
     font-size: 16px;
     border: none;
     border-bottom: 1px solid #979797;

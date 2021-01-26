@@ -92,20 +92,33 @@ export const database = (function () {
 
     // Database events
 
-    function projectCreated(listeners){
+    function projectCreated(listeners) {
         // The set timeout is needed so that this function is only called when the db is initialized
-        setTimeout(function(){
+        setTimeout(function () {
             const projectsRef = db.ref(`/projects/${uid}/`);
-            projectsRef.on('child_added', (snapshot, prevChildKey) =>{
+            projectsRef.on('child_added', (snapshot, prevChildKey) => {
                 const newProject = snapshot.val();
                 listeners.forEach(listener => {
                     listener(newProject);
                 })
             });
-        },0);
+        }, 0);
     }
 
-    function projectDeleted(){
+    function projectCreatedOnlyName(listeners) {
+        // The set timeout is needed so that this function is only called when the db is initialized
+        setTimeout(function () {
+            const projectsRef = db.ref(`/project-names/${uid}/`);
+            projectsRef.on('child_added', (snapshot, prevChildKey) => {
+                const newProject = snapshot.val();
+                listeners.forEach(listener => {
+                    listener(newProject);
+                })
+            });
+        }, 0);
+    }
+
+    function projectDeleted() {
 
     }
 
@@ -119,6 +132,7 @@ export const database = (function () {
         updateTodo,
         deleteTodo,
         projectCreated,
+        projectCreatedOnlyName,
 
     }
 })();
