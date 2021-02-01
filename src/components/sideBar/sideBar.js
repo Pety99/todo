@@ -23,6 +23,9 @@ export const sideBar = (function () {
     const addProjectSucessListeners = []; //These functions will be called when the addProject is saved
     
 
+    /**
+     * This will create the main parts of the sidebar before using it
+     */
     const initPanel = (function () {
         createPanel();
         profileContainer = createProfile();

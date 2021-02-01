@@ -20,4 +20,5 @@ firebase.auth().onAuthStateChanged(function (user) {
         app.hidePage();
         login.loadPage();
     }
+
 });

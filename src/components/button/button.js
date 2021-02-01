@@ -21,6 +21,17 @@ export const button = (function () {
         clickListeners && addListeners(clickListeners);
     }
 
+    function createImage(image, clickListeners, extraClasses){
+        //Create the button
+        button = document.createElement('img');
+        button.src = image;
+        button.classList.add(style.image);
+        extraClasses && button.classList.add(...extraClasses);
+
+        //Add the click listeners
+        clickListeners && addListeners(clickListeners);
+    }
+
     function makeOutline(){
         button.classList.add(style.outline);
     }
@@ -48,6 +59,7 @@ export const button = (function () {
     return {
         getButton,
         create,
+        createImage,
         makeOutline,
         toggle,
         addListener

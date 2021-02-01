@@ -35,6 +35,7 @@ export const menuBar = (function () {
         if (event.target == sideBar.getPanel()) {
             toggleShrink();
             sideBar.toggle();
+
         }
     });
 
