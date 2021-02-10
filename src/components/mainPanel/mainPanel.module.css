@@ -1,4 +1,3 @@
-
 .mainPanel {
     display: flex;
     flex-direction: row;
@@ -16,20 +15,22 @@
     background: radial-gradient(100% 100% at 0% 0%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.15) 100%);
     box-shadow: 80px 100px 100px rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(80px);
+    overflow: auto;
 }
 
-.topBar{
+.topBar {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.topBar h1{
+.topBar h1 {
     color: #2e2e2e;
     margin: 40px;
 }
 
-.deleteButtonContainer{
-    width:50px;
+.deleteButtonContainer {
+    width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -37,93 +38,148 @@
     margin: 30px;
 }
 
-.topBar img{
+.topBar img {
     cursor: pointer;
     width: 40px;
     height: 40px;
     transition: all 0.15s;
 }
 
-.topBar img:hover{
+.topBar img:hover {
     width: 45px;
     height: 45px;
     transition: all 0.15s;
 }
 
-.topBar img:active:hover{
+.topBar img:active:hover {
     width: 40px;
     height: 40px;
     transition: all 0.15s;
 }
 
-.categories{
-
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px 30px;
 }
 
-.todoList{
+.smallButton {
+    height: 33px;
+    width: auto;
+    padding: 0px 30px 0px 30px;
+    margin: 5px 9px;
+    border: 1.5px solid transparent;
+}
+
+.smallButton:active:hover {
+    margin: 5px 9px;
+    height: 33px;
+    width: auto;
+}
+
+.smallButton.high {
+    background-color: #FA4D77;
+}
+
+.smallButton.normal {
+    background-color: #FACA4D;
+}
+
+.smallButton.low {
+    background-color: #574DFA;
+}
+
+.smallButton.high:hover {
+    border: 1.5px solid #FA4D77;
+}
+
+.smallButton.normal:hover {
+    border: 1.5px solid #FACA4D;
+}
+
+.smallButton.low:hover {
+    border: 1.5px solid #574DFA;
+}
+
+.smallButton.unselected {
+    background-color: transparent;
+    color: black;
+}
+
+.todoList {
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
-.bottomBar{
+tbody {
+    display: inline-table;
+}
+
+.bottomBar {
     display: flex;
     justify-content: flex-end;
 }
-.addButtonContainer{
-    width:70px;
+
+.addButtonContainer {
+    width: 70px;
     height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 30px;
-    border-radius:100%;
+    border-radius: 100%;
     cursor: pointer;
     background-color: #574DFA;
     transition: all 0.15s;
-    box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.25);
+    box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.25);
 }
-.addButtonContainer img{
-    width:43px;
+
+.addButtonContainer img {
+    width: 43px;
     height: 43px;
     transition: all 0.15s;
 }
-.addButtonContainer:hover{
+
+.addButtonContainer:hover {
     background-color: #4e45e1;
     transition: 0.15s;
 }
 
-
-.addButtonContainer:active:hover{
+.addButtonContainer:active:hover {
     width: 60px;
     height: 60px;
     margin: 35px;
     transition: all 0.15s
 }
 
-.addButtonContainer:active:hover img{
+.addButtonContainer:active:hover img {
     width: 38px;
     height: 38px;
     transition: all 0.15s;
 }
 
-.placeholder {
-    margin: auto 20px 20px 20px;
+.placeholder{
+    display: none;
+}
+
+.placeholder.visible {
+    margin: auto;
+    display: block;
     text-align: center;
 }
 
-.placeholder h1{
+.placeholder.visible h1 {
     color: #2e2e2e;
     font-size: 24px;
 }
 
-.placeholder h2{
+.placeholder.visible h2 {
     font-size: 16px;
     color: #6d6d6d;
     margin-bottom: 40px;
 }
 
-.placeholder img{
+.placeholder.visible img {
     width: 100%;
 }
 
@@ -131,7 +187,6 @@
     .mainPanel {
         width: 100%;
         height: 100%;
-        position: absolute;
         z-index: -1;
     }
 }
@@ -139,6 +194,7 @@
 @media screen and (min-width:768px) {
     .container, .mainPanel {
         border-radius: 20px;
+        position: static !important;
     }
     .container {
         margin: 20px;
@@ -148,16 +204,15 @@
 }
 
 @media screen and (min-width:1366px) {
-    .placeholder{
+    .placeholder {
         width: 50%;
         margin: auto auto 20px auto;
     }
 }
 
-.todoTitle{
+.todoTitle {
     margin-top: auto;
     text-align: center;
     font-size: 24px;
     color: #2E2E2E;
 }
-

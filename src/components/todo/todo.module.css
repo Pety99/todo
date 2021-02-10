@@ -1,27 +1,37 @@
 .todo.high{ 
-    border: 1px solid #FA4D77;
+    border: 1.5px solid #FA4D77;
 }
 .todo.normal{
-    border: 1px solid #FACA4D;
+    border: 1.5px solid #FACA4D;
 }
 .todo.low{
-    border: 1px solid #574DFA;
+    border: 1.5px solid #574DFA;
 }
 .row{
-    
+    transition: all 180ms;
+    will-change: opacity, width, height;
 }
 
 .todo{
-    width: 100%;
+    transition: all 180ms;
+    transition-property: width, height;
+    will-change: opacity, width, height;
+    width: calc(100% - 60px);
     height: 100%;
-    margin: 1px 30px 1px 30px;
+    margin: 10px 30px 10px 30px;
     border-radius: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%),
     linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+    cursor: pointer;
 }
+
+.todo.fadeOut{
+    height: 0px;
+}
+
 .todo .checkBox{
     width: 35px;
     height: 35px;
@@ -41,7 +51,57 @@
     justify-content: center;
     align-items: center;
     margin: 10px 15px 10px 10px;
+    transition: all 0.1s linear;
+}
 
+.buttonContainer img{
+    width: 25px;
+    height: 25px;
+    transition: all 0.1s linear;
+}
+
+.buttonContainer:hover{
+    margin: 8px 13px 8px 8px;
+    transition: all 0.1s linear;
+}
+
+.buttonContainer:hover img{
+    width: 29px;
+    height: 29px;
+    transition: all 0.1s linear;
+}
+
+.buttonContainer:active:hover img{
+    width: 25px;
+    height: 25px;
+    transition: all 0.1s linear;
+}
+.buttonContainer:active:hover{
+    margin: 10px 15px 10px 10px;
+    transition: all 0.1s linear;
+}
+.line{
+    width: 0px;
+    height: 0px;
+    transition: all 0.1s linear;
+    margin: -3px;
+    position: absolute;
+    transition-property: width, height, margin;
+}
+
+.line.visible{
+        height: 2px;
+        border: none;
+        border-bottom: 2px solid #979797;
+        position: absolute;
+        width: calc(100% - 80px);
+        margin: 10px;
+        transition: all 0.1s linear;
+        transition-property: width, height, margin;
+}
+
+.fadeOut{
+    opacity: 0;
 }
 
 

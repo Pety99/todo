@@ -8,6 +8,7 @@ import style from './sideBar.module.css'
 
 import {button} from '/src/components/button/button'
 import {modal} from '/src/components/modal/modal'
+import {mainPanel} from '/src/components/mainPanel/mainPanel'
 
 export const sideBar = (function () {
 
@@ -151,9 +152,10 @@ export const sideBar = (function () {
      * @param {string} name 
      * @param {arrayOfFunctions} listeners 
      */
-    function createProject(name, listeners) {
+    function createProject(name, id, listeners) {
         const project = document.createElement('div');
         project.classList.add(style.project);
+        project.dataset.id = id;
         project.innerHTML = `<img src="${dot}" alt="Project">
         <p>${name}</p>`;
         listeners && listeners.forEach(listener => {
@@ -170,7 +172,20 @@ export const sideBar = (function () {
      * @param {*} listeners
      */
     function createProjectView(newProject, listeners){
-        dropdownContent.appendChild(createProject(newProject.name));
+        dropdownContent.appendChild(createProject(newProject.val().name, newProject.key, [()=> mainPanel.openProject(newProject)]));
+    }
+
+    /**
+     * Removes the project from the dropdown content
+     * @param {*} project 
+     */
+    function removeProjectView(project){
+        const projects = Array.from(dropdownContent.children);
+        projects.forEach(p =>{
+            if(p.dataset.id == project.key){
+                p.remove();
+            }
+        });
     }
 
     /**
@@ -186,6 +201,14 @@ export const sideBar = (function () {
             currentProfile.parentNode.replaceChild(newProfile, currentProfile);
             profileContainer = newProfile;
         },0);
+    }
+
+    /**
+     * Sets the database
+     * @param {*} db 
+     */
+    function setDatabase(db){
+        database = db;
     }
 
     //Public click Event Listeners/////////////////////////////////////////////////////////////////
@@ -260,7 +283,8 @@ export const sideBar = (function () {
         toggle,
         addAddProjectListeners,
         addSignOutListeners,
-        createProjectView
+        createProjectView,
+        removeProjectView,
     }
 })();
 

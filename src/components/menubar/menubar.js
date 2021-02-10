@@ -2,7 +2,7 @@ import style from './menuBar.module.css';
 import hamburgerIcon from './assets/Hamburger.svg'
 
 import { sideBar } from '/src/components/sideBar/sideBar';
-
+import { mainPanel} from '/src/components/mainPanel/mainPanel';
 export const menuBar = (function () {
     //Create the background of the menu
     const panel = document.createElement('div');
@@ -20,11 +20,14 @@ export const menuBar = (function () {
     }
 
     function toggleShrink() {
+        const content = document.getElementById('content')
         if (panel.classList.contains(style.small)) {
+            content.style.display = 'block';
             panel.classList.remove(style.small);
         }
         else {
             panel.classList.add(style.small);
+            content.style.display = 'flex';
         }
     }
 
@@ -35,6 +38,7 @@ export const menuBar = (function () {
         if (event.target == sideBar.getPanel()) {
             toggleShrink();
             sideBar.toggle();
+            mainPanel.toggle();
 
         }
     });
@@ -43,6 +47,7 @@ export const menuBar = (function () {
     hamburger.addEventListener('click', function () {
         toggleShrink();
         sideBar.toggle();
+        mainPanel.toggle();
     });
 
     return {
